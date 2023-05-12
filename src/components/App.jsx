@@ -10,6 +10,26 @@ export class App extends React.Component {
     filter: '',
   };
 
+  // localStorage
+componentDidMount() {
+  const contacts = localStorage.getItem('contacts');
+  const parsedСontacts = JSON.parse(contacts);
+
+  if (parsedСontacts) {
+    this.setState({ contacts: parsedСontacts });
+  }
+}
+
+componentDidUpdate(prevProps,prevState){
+  if(prevState.contacts !== this.state.contacts){
+    localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    return true;
+  }
+  return false;
+}
+
+
+
   AddContact = contact => {
     // console.log(contact)
     this.setState(({ contacts }) => ({
